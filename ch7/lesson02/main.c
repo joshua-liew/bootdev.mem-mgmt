@@ -18,6 +18,7 @@ test_create_token_pointer_array_single(const MunitParameter params[], void* data
     munit_assert_int(result[0]->line, ==, 1);
     munit_assert_int(result[0]->column, ==, 1);
     munit_assert_ptr_not_equal(result[0], &token);
+    munit_assert_ptr_not_equal(result[0]->literal, token.literal);
 
     free(result[0]->literal);
     free(result[0]);
@@ -45,6 +46,7 @@ test_create_token_pointer_array_multiple(const MunitParameter params[], void* da
         munit_assert_int(result[i]->line, ==, tokens[i].line);
         munit_assert_int(result[i]->column, ==, tokens[i].column);
         munit_assert_ptr_not_equal(result[i], &tokens[i]);
+        munit_assert_ptr_not_equal(result[i]->literal, tokens[i].literal);
     }
 
     for (int i = 0; i < 3; i++) {
@@ -72,7 +74,9 @@ test_create_token_pointer_array_memory_allocation(const MunitParameter params[],
     munit_assert_not_null(result[1]);
     munit_assert_ptr_not_equal(result[0], result[1]);
     munit_assert_ptr_not_equal(result[0], &tokens[0]);
+    munit_assert_ptr_not_equal(result[0]->literal, tokens[0].literal);
     munit_assert_ptr_not_equal(result[1], &tokens[1]);
+    munit_assert_ptr_not_equal(result[0]->literal, tokens[1].literal);
 
     free(result[0]->literal);
     free(result[0]);
