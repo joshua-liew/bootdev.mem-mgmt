@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "exercise.h"
 
@@ -16,7 +17,10 @@ token_t** create_token_pointer_array(token_t* tokens, size_t count) {
             fprintf(stderr, "Failed to allocate memory (ptr).\n");
             exit(1);
         }
-        ptr->literal = (tokens + i)->literal;
+        char* ptr_str = (char*)malloc(sizeof(tokens[i].literal));
+        strcpy(ptr_str, tokens[i].literal);
+        ptr->literal = ptr_str;
+        //ptr->literal = (tokens + i)->literal;
         ptr->column = (tokens + i)->column;
         ptr->line = (tokens + i)->line;
         //ptr->literal = tokens[i].literal;

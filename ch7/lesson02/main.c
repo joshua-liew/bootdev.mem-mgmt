@@ -19,6 +19,7 @@ test_create_token_pointer_array_single(const MunitParameter params[], void* data
     munit_assert_int(result[0]->column, ==, 1);
     munit_assert_ptr_not_equal(result[0], &token);
 
+    free(result[0]->literal);
     free(result[0]);
     free(result);
     return MUNIT_OK;
@@ -47,6 +48,7 @@ test_create_token_pointer_array_multiple(const MunitParameter params[], void* da
     }
 
     for (int i = 0; i < 3; i++) {
+        free(result[i]->literal);
         free(result[i]);
     }
     free(result);
@@ -72,7 +74,9 @@ test_create_token_pointer_array_memory_allocation(const MunitParameter params[],
     munit_assert_ptr_not_equal(result[0], &tokens[0]);
     munit_assert_ptr_not_equal(result[1], &tokens[1]);
 
+    free(result[0]->literal);
     free(result[0]);
+    free(result[1]->literal);
     free(result[1]);
     free(result);
     return MUNIT_OK;
